@@ -44,12 +44,10 @@ const userSchema = new mongoose.Schema({
     },
   },
   deposit: {
-    type: Number,
-    default: 0
+    type: String,
   },
   withdraw: {
-    type: Number,
-    default: 0
+    type: String
   },
   bitcoinAddress: {
     type: String

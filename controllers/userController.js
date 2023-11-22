@@ -130,7 +130,7 @@ const verifyOTP = async (req, res) => {
 
         if (!storedOtp) {
             return res.status(404).json({
-                message: 'OTP not found or expired'
+                message: 'Invalid OTP'
             });
         }
 
@@ -203,6 +203,7 @@ const resendVerificationEmail = async (req, res) => {
         // create a token
         const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "30 mins" });
 
+        console.log(token);
         const subject = "One-time Verification code";
         const link = `${req.protocol}://${req.get('host')}/user/verify/${token}`;
         const html = await mailTemplate(otp, user.firstName);
@@ -287,6 +288,69 @@ const forgotPassword = async (req, res) => {
 };
 
 
+// resend verification
+const resendVerificationOTP = async (req, res) => {
+    try {
+        // get user email from request body
+        const { email } = req.body;
+        if (!email) {
+            return res.status(404).json({
+                message: "Please enter email address"
+            });
+        }
+
+        // find user
+        const user = await userModel.findOne({ email: email.toLowerCase() });
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // Generate OTP
+        const otp = otpGenerator.generate(5, {
+            lowerCaseAlphabets: false,
+            upperCaseAlphabets: false,
+            specialChars: false,
+        });
+        console.log(otp);
+
+        // Create an OTP instance associated with the user
+        const otpInstance = await OTP.create({
+            otp,
+            user: user._id,
+        });
+
+        user.lastOtpId = otpInstance._id;
+        await user.save();
+
+        // create a token
+        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "30 mins" });
+
+        console.log(token);
+        const subject = "One-time Verification code";
+        const link = `${req.protocol}://${req.get('host')}/user/verify/${token}`;
+        const html = await mailTemplate(otp, user.firstName);
+        const mail = {
+            email: email,
+            subject,
+            html,
+        };
+        sendEmail(mail);
+
+        res.status(200).json({
+            message: `OTP sent successfully to your email: ${user.email}`,
+            token
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+
 // Forgot Password Verify OTP
 const passwordVerifyOTP = async (req, res) => {
     try {
@@ -318,17 +382,22 @@ const passwordVerifyOTP = async (req, res) => {
 
         // Retrieve the stored OTP document based on the user otp input
         const storedOtp = await OTP.findOne({ otp: otp });
+        console.log(storedOtp);
 
-        if (!storedOtp) {
+        if (!storedOtp || storedOtp.verified === true) {
             return res.status(404).json({
-                message: 'OTP not found or expired'
+                message: 'Invalid OTP'
             });
         }
 
-        // Compare the user-entered OTP with the stored OTP
+        // Compare the user-entered OTP with the stored OTP And checks if the same OTP has not been used before
         if (storedOtp._id.toString() === user.lastOtpId.toString()) {
+            storedOtp.verified = true;
+            await storedOtp.save();
+            console.log(storedOtp.verified);
+
             return res.status(200).json({
-                message: "User verified successfully",
+                message: "Verification Successful",
             });
         } else {
             return res.status(400).json({
@@ -391,31 +460,20 @@ const resetPassword = async (req, res) => {
 // User login 
 const userLogin = async (req, res) => {
     try {
-        const { userData, password } = req.body;
-        if (!userData) {
+        const { email, password } = req.body;
+        if (!email) {
             return res.status(400).json({
-                message: 'Please enter Email or Phone Number'
+                message: 'Please enter Email address'
             })
         }
 
-        let query = {};
-
-        // Check if userData is an email or phone number and construct the query accordingly
-        if (userData.includes('@')) {
-            // If userData contains @ it is assumed to be an email address
-            query.email = userData;
-        } else {
-            // It is assumed to be a phone number
-            query.phoneNumber = userData;
-        }
-
         // Find user based on email or Phone Number
-        const user = await userModel.findOne({ $or: [query] });
+        const user = await userModel.findOne({email});
 
         // Check if the user exists
         if (!user) {
             return res.status(404).json({
-                message: 'Invalid Email or Phone Number'
+                message: 'User not found'
             });
         }
 
@@ -630,5 +688,6 @@ module.exports = {
     resetPassword,
     updateUser,
     deleteAccount,
-    passwordVerifyOTP
+    passwordVerifyOTP,
+    resendVerificationOTP,
 }

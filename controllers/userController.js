@@ -424,13 +424,10 @@ const resetPassword = async (req, res) => {
         }
 
         // Verify the user's token
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const { email } = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Get the user's ID from the token
-        const userId = decodedToken.userId;
-
-        // Find the user by ID
-        const user = await userModel.findById(userId);
+        // Find the user by the email gotten from decoded token
+        const user = await userModel.findOne({ email });
         if (!user) {
             return res.status(404).json({
                 message: "User not found"
@@ -540,7 +537,7 @@ const changePassword = async (req, res) => {
         const isPasswordMatch = await bcrypt.compare(existingPassword, user.password);
         if (!isPasswordMatch) {
             return res.status(401).json({
-                message: "Existing password is incorrect."
+                message: "Existing password is Incorrect."
             });
         }
 
@@ -638,7 +635,8 @@ const updateUser = async (req, res) => {
             }
         }
 
-        const update = await userModel.findByIdAndUpdate(userId, data, { new: true })
+        const update = await userModel.findByIdAndUpdate(userId, data, { new: true });
+        console.log(update.bitcoinAddress);
 
         res.status(200).json({
             message: 'User updated successfully',

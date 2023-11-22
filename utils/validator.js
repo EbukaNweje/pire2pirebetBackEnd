@@ -91,12 +91,9 @@ const validationUpdate = (req, res, next) => {
             "string.empty": "Email address cannot be left empty.",
             "string.email": "Invalid email format. Please use a valid email address.",
         }),
-        phoneNumber: Joi.string()
-            .length(11)
-            .pattern(/^\d+$/)
+        bitcoinAddress: Joi.string()
             .messages({
-                "string.length": "Phone number should be exactly 11 digits.",
-                "string.pattern.base": "Phone number should contain only numeric digits.",
+                "string.empty": "bitcoinAddress cannot be left empty."
             }),
         newPassword: Joi.string()
             .pattern(new RegExp("^(?=.*[!@#$%^&*])(?=.*[A-Z]).{7,}$"))

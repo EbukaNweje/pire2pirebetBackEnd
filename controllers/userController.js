@@ -636,7 +636,6 @@ const updateUser = async (req, res) => {
         }
 
         const update = await userModel.findByIdAndUpdate(userId, data, { new: true });
-        console.log(update.bitcoinAddress);
 
         res.status(200).json({
             message: 'User updated successfully',

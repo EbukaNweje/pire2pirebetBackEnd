@@ -50,7 +50,8 @@ const userSchema = new mongoose.Schema({
     type: String
   }],
   bitcoinAddress: {
-    type: String
+    type: String,
+    trim: true
   },
   isAdmin: {
     type: Boolean,

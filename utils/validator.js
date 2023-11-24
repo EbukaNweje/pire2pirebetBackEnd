@@ -92,8 +92,9 @@ const validationUpdate = (req, res, next) => {
             "string.email": "Invalid email format. Please use a valid email address.",
         }),
         bitcoinAddress: Joi.string()
+            .trim()
             .messages({
-                "string.empty": "bitcoinAddress cannot be left empty."
+                "string.empty": "Bitcoin Address cannot be left empty."
             }),
         newPassword: Joi.string()
             .pattern(new RegExp("^(?=.*[!@#$%^&*])(?=.*[A-Z]).{7,}$"))

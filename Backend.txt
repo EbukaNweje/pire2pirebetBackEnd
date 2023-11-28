@@ -1,0 +1,10 @@
+!! MAKE ANY BACKEND NOTE HERE !!
+
+
+DB = Your MongoDb connection URL
+
+SERVICE = Your Email service provider either Gmail or Yahoo
+MAIL_ID = Your Email IAddress
+MAIL_PASSWORD = Your Email App password generated
+
+JWT_SECRET = Your JWT SECRET

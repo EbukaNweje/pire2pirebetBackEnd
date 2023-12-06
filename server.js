@@ -23,6 +23,10 @@ app.use(
   })
 );
 
+app.use("/", (req, res) => {
+  res.status(200).send("Welcome to the Home page!");
+})
+
 app.use("/api", userRouter);
 
 app.listen(PORT, () => {

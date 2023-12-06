@@ -21,14 +21,6 @@ const signUp = async (req, res) => {
             });
         }
 
-        // Generate OTP
-        const otp = otpGenerator.generate(5, {
-            lowerCaseAlphabets: false,
-            upperCaseAlphabets: false,
-            specialChars: false,
-        });
-        console.log(otp);
-
         // salt and hash the password using bcrypt
         const salt = bcrypt.genSaltSync(12);
         const hashedPassword = bcrypt.hashSync(password, salt);
@@ -46,17 +38,48 @@ const signUp = async (req, res) => {
             password: hashedPassword,
         });
 
-        // Create an OTP instance associated with the user
-        const otpInstance = await OTP.create({
+        const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "31d" })
+        console.log(token)
+
+        res.status(201).json({
+            message: `Check your email: ${user.email} for the One-time Verification code.`,
+            data: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                isVerified: user.isVerified,
+                token
+            },
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+};
+
+const signUpMail = async (req, res) => {
+    try {
+        const email = req.body.email;
+        const user = await userModel.findOne({ email: email });
+
+        // Generate OTP
+        const otp = otpGenerator.generate(5, {
+            lowerCaseAlphabets: false,
+            upperCaseAlphabets: false,
+            specialChars: false,
+        });
+        console.log(otp);
+
+         // Create an OTP instance associated with the user
+         const otpInstance = await OTP.create({
             otp,
             user: user._id,
         });
 
         user.lastOtpId = otpInstance._id;
         await user.save();
-
-        const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "31d" })
-        console.log(token)
 
         // Construct the OTP email
         const subject = "One-time Verification code";
@@ -70,17 +93,10 @@ const signUp = async (req, res) => {
 
         // Send OTP email
         await sendEmail(mail);
-
-        res.status(201).json({
-            message: `Check your email: ${user.email} for the One-time Verification code.`,
-            data: {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                isVerified: user.isVerified,
-                token
-            },
-        });
+        res.status(200).json({
+            status: 'success',
+            message: 'Email sent successfully'
+        })
 
     } catch (error) {
         res.status(500).json({
@@ -687,4 +703,5 @@ module.exports = {
     deleteAccount,
     passwordVerifyOTP,
     resendVerificationOTP,
+    signUpMail,
 }

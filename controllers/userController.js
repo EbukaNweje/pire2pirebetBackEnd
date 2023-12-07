@@ -95,7 +95,8 @@ const signUpMail = async (req, res) => {
         await sendEmail(mail);
         res.status(200).json({
             status: 'success',
-            message: 'Email sent successfully'
+            message: 'Email sent successfully',
+            data: user
         })
 
     } catch (error) {

@@ -51,7 +51,7 @@ const validationSignUp = (req, res, next) => {
             year: Joi.number().integer().min(1000).max(9999).required(),
         }).custom((value, helpers) => {
             // Custom validation for February
-            if (value.month === 'February' && (value.day < 1 || value.day > 29)) {
+            if (value.month === 'FEBRUARY' && (value.day < 1 || value.day > 29)) {
                 return helpers.error('any.custom', { message: 'Invalid day for February.' });
             }
             return value;

@@ -515,6 +515,7 @@ const userLogin = async (req, res) => {
         },
             process.env.JWT_SECRET, { expiresIn: "1 day" })
 
+        // Save the user data to the database
         user.save()
 
         res.status(200).json({

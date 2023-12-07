@@ -284,7 +284,7 @@ const forgotPassword = async (req, res) => {
 
         const subject = "One-time Verification code";
         const link = `${req.protocol}://${req.get('host')}/user/verify/${token}`;
-        const html = await mailTemplate(otp, user.firstName);
+        const html = await forgotMailTemplate(otp, user.firstName);
         const mail = {
             email: email,
             subject,
@@ -519,8 +519,7 @@ const userLogin = async (req, res) => {
 
         res.status(200).json({
             message: 'Login successful',
-            firstName: user.firstName,
-            email: user.email,
+            user,
             token
         })
 

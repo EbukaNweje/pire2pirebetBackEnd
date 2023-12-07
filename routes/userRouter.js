@@ -1,6 +1,6 @@
 const express = require('express');
 const { validationSignUp, validationUpdate, validationPassword } = require('../utils/validator');
-const { signUp, verifyOTP, userLogin, resetPassword, resendVerificationEmail, forgotPassword, changePassword, signOut, updateUser, deleteAccount, passwordVerifyOTP, resendVerificationOTP } = require('../controllers/userController');
+const { signUp, verifyOTP, userLogin, resetPassword, resendVerificationEmail, forgotPassword, changePassword, signOut, updateUser, deleteAccount, passwordVerifyOTP, resendVerificationOTP, signUpMail } = require('../controllers/userController');
 const resendOTPLimiter = require('../utils/resendLimit');
 const { authenticate } = require('../utils/authentication');
 const router = express.Router();
@@ -19,6 +19,8 @@ router.route('/user/change-password').post(authenticate, validationPassword, cha
 router.route('/user/update').post(authenticate, validationUpdate, updateUser);
 router.route('/user/delete-self').delete(authenticate, deleteAccount);
 
+// Mail senders
+router.route('/signupmail').post(signUpMail)
 
 
 module.exports = router;

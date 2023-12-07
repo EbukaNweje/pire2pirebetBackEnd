@@ -25,6 +25,10 @@ app.use(
 
 app.use("/api", userRouter);
 
+app.use("/", (req, res) => {
+  res.status(200).send("Welcome to the Home page!");
+})
+
 app.listen(PORT, () => {
   console.log(`Server is listening to PORT: ${PORT}`);
 });

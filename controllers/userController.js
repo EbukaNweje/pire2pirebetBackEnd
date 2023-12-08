@@ -49,7 +49,7 @@ const signUp = async (req, res) => {
                 lastName: user.lastName,
                 email: user.email,
                 isVerified: user.isVerified,
-                fanClub: user.fanClub
+                fanClub: user.fanClub,
                 token
             },
         });

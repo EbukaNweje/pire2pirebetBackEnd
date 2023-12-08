@@ -11,7 +11,7 @@ const RevokedToken = require('../models/revokedTokenModel')
 // User sign up
 const signUp = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, birthday } = req.body;
+        const { firstName, lastName, email, password, birthday, fanClub } = req.body;
 
         const emailExists = await userModel.findOne({ email });
 

@@ -30,6 +30,7 @@ const signUp = async (req, res) => {
             firstName,
             lastName,
             email,
+            fanClub,
             birthday: {
                 day: birthday.day,
                 month: birthday.month.toLowerCase(),
@@ -48,6 +49,7 @@ const signUp = async (req, res) => {
                 lastName: user.lastName,
                 email: user.email,
                 isVerified: user.isVerified,
+                fanClub: user.fanClub
                 token
             },
         });

@@ -20,6 +20,13 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true,
   },
+  fanClub: {
+    type: String,
+    required: true,
+    lowercase: true,
+    uppercase: true,
+    trim: true,
+  },
   password: {
     type: String,
     required: true,

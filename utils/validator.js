@@ -23,6 +23,14 @@ const validationSignUp = (req, res, next) => {
                 "string.empty": "Last name cannot be left empty.",
                 "string.pattern.base": "Last name should only contain letters.",
             }),
+        fanClub: Joi.string()
+            .pattern(/^\s*[A-Za-z]+\s*$/)
+            .required()
+            .messages({
+                "any.required": "Please provide your Fan Club name.",
+                "string.empty": "Fan Club name cannot be left empty.",
+                "string.pattern.base": "Fan Club name should only contain letters.",
+            }),
         email: Joi.string().email().required().messages({
             "any.required": "Please provide your email address.",
             "string.empty": "Email address cannot be left empty.",

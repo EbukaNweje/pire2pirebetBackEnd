@@ -9,27 +9,27 @@ const validationSignUp = (req, res, next) => {
     const schema = Joi.object({
         firstName: Joi.string()
             .pattern(/^\s*[A-Za-z]+\s*$/)
-            .required()
+            // .required()
             .messages({
-                "any.required": "Please provide your first name.",
+                // "any.required": "Please provide your first name.",
                 "string.empty": "First name cannot be left empty.",
                 "string.pattern.base": "First name should only contain letters and no space in between.",
             }),
         lastName: Joi.string()
             .pattern(/^\s*[A-Za-z]+\s*$/)
-            .required()
+            // .required()
             .messages({
-                "any.required": "Please provide your last name.",
+                // "any.required": "Please provide your last name.",
                 "string.empty": "Last name cannot be left empty.",
                 "string.pattern.base": "Last name should only contain letters.",
             }),
         fanClub: Joi.string()
-            .pattern(/^\s*[A-Za-z]+\s*$/)
+            .pattern(/^\s*[A-Za-z]+(?:\s+[A-Za-z]+)*\s*$/)
             .required()
             .messages({
                 "any.required": "Please provide your Fan Club name.",
                 "string.empty": "Fan Club name cannot be left empty.",
-                "string.pattern.base": "Fan Club name should only contain letters.",
+                "string.pattern.base": "Fan Club name should only contain letters with spaces allowed in between.",
             }),
         email: Joi.string().email().required().messages({
             "any.required": "Please provide your email address.",
@@ -45,28 +45,28 @@ const validationSignUp = (req, res, next) => {
                 "string.pattern.base":
                     "Password must be at least 7 characters long and include at least one uppercase letter and one special character (!@#$%^&*).",
             }),
-        confirmPassword: Joi.string()
-            .valid(Joi.ref("password"))
-            .required()
-            .messages({
-                "any.only": "Passwords do not match. Please make sure your passwords match.",
-                "string.empty": "Please confirm your password.",
-                "any.required": "Please confirm your password.",
-            }),
-        birthday: Joi.object({
-            day: Joi.number().integer().min(1).max(31).required(),
-            month: Joi.string().valid(...validMonths).required().uppercase(),
-            year: Joi.number().integer().min(1000).max(9999).required(),
-        }).custom((value, helpers) => {
-            // Custom validation for February
-            if (value.month === 'FEBRUARY' && (value.day < 1 || value.day > 29)) {
-                return helpers.error('any.custom', { message: 'Invalid day for February.' });
-            }
-            return value;
-        }).required(),
-        deposit: Joi.number().default(0),
-        withdraw: Joi.number().default(0),
-        bitcoinAddress: Joi.string(),
+        // confirmPassword: Joi.string()
+        //     .valid(Joi.ref("password"))
+        //     .required()
+        //     .messages({
+        //         "any.only": "Passwords do not match. Please make sure your passwords match.",
+        //         "string.empty": "Please confirm your password.",
+        //         "any.required": "Please confirm your password.",
+        //     }),
+        // birthday: Joi.object({
+        //     day: Joi.number().integer().min(1).max(31).required(),
+        //     month: Joi.string().valid(...validMonths).required().uppercase(),
+        //     year: Joi.number().integer().min(1000).max(9999).required(),
+        // }).custom((value, helpers) => {
+        //     // Custom validation for February
+        //     if (value.month === 'FEBRUARY' && (value.day < 1 || value.day > 29)) {
+        //         return helpers.error('any.custom', { message: 'Invalid day for February.' });
+        //     }
+        //     return value;
+        // }).required(),
+        // deposit: Joi.number().default(0),
+        // withdraw: Joi.number().default(0),
+        // bitcoinAddress: Joi.string(),
     });
 
     const { error } = schema.validate(req.body, { abortEarly: false });

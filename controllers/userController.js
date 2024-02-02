@@ -11,7 +11,7 @@ const RevokedToken = require('../models/revokedTokenModel')
 // User sign up
 const signUp = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, birthday, fanClub } = req.body;
+        const { email, password, fanClub } = req.body;
 
         const emailExists = await userModel.findOne({ email });
 
@@ -27,15 +27,8 @@ const signUp = async (req, res) => {
 
         // Create a user
         const user = await userModel.create({
-            firstName,
-            lastName,
             email,
             fanClub,
-            birthday: {
-                day: birthday.day,
-                month: birthday.month.toLowerCase(),
-                year: birthday.year,
-            },
             password: hashedPassword,
         });
 

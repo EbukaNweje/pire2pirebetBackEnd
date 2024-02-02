@@ -3,13 +3,11 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
-    required: true,
     uppercase: true,
     trim: true,
   },
   lastName: {
     type: String,
-    required: true,
     uppercase: true,
     trim: true,
   },
@@ -35,16 +33,13 @@ const userSchema = new mongoose.Schema({
   birthday: {
     day: {
       type: Number,
-      required: true
     },
     month: {
       type: String,
-      required: true,
       uppercase: true,
     },
     year: {
       type: Number,
-      required: true
     },
   },
   deposit: [{

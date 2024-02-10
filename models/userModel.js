@@ -42,12 +42,17 @@ const userSchema = new mongoose.Schema({
       type: Number,
     },
   },
-  deposit: [{
-    type: String,
+  deposits: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Deposit'
   }],
-  withdraw: [{
-    type: String
+  withdraws: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Withdraw'
   }],
+  balance: {
+    type: Number,
+  },
   bitcoinAddress: {
     type: String,
     trim: true

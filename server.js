@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const userRouter = require('./routes/userRouter');
 const cors = require('cors');
+const transactionRouter = require('./routes/transactionRouter');
 
 const fileupload = require("express-fileupload");
 
@@ -17,13 +18,14 @@ app.use(cors({origin: "*"}));
 app.use(morgan('dev'))
 
 app.use(express.json());
-app.use(
-  fileupload({
-    useTempFiles: true,
-  })
-);
+// app.use(
+//   fileupload({
+//     useTempFiles: true,
+//   })
+// );
 
 app.use("/api", userRouter);
+app.use("/api", transactionRouter);
 
 app.use("/", (req, res) => {
   res.status(200).send("Welcome to the Home page!");

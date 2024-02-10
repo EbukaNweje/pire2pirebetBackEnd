@@ -172,7 +172,7 @@ exports.declineWithdraw = async (req, res) => {
 }
 
 // Get all payments by a User
-exports.allUserWithrawal = async (req, res) => {
+exports.allUserWithdrawal = async (req, res) => {
     try {
         const { userId } = req.user;
         // Get the user's data

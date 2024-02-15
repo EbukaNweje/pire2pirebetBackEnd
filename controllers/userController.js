@@ -121,7 +121,7 @@ const verifyOTP = async (req, res) => {
         // Verify the token and extract the user's email
         const { email } = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Retrieve user from the database based on the email
+        // Retrieve user from the database based on the email working
         const user = await userModel.findOne({ email: email.toLowerCase() });
 
         if (!user) {

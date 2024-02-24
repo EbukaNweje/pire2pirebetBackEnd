@@ -7,13 +7,21 @@ const validationSignUp = (req, res, next) => {
     ];
     // Define the validation schema using Joi
     const schema = Joi.object({
-        firstName: Joi.string()
-            .pattern(/^\s*[A-Za-z]+\s*$/)
-            // .required()
+        fullName: Joi.string()
+            .pattern(/^\s*[A-Za-z]+(?:\s+[A-Za-z]+)*\s*$/)
+            .required()
             .messages({
-                // "any.required": "Please provide your first name.",
-                "string.empty": "First name cannot be left empty.",
-                "string.pattern.base": "First name should only contain letters and no space in between.",
+                "any.required": "Please provide your Fullname name.",
+                "string.empty": "Fullname name cannot be left empty.",
+                "string.pattern.base": "Fullname name should only contain letters with spaces allowed in between.",
+            }),
+        userName: Joi.string()
+            .pattern(/^\s*[A-Za-z]+\s*$/)
+            .required()
+            .messages({
+                // "any.required": "Please provide your last name.",
+                "string.empty": "Last name cannot be left empty.",
+                "string.pattern.base": "Last name should only contain letters.",
             }),
         lastName: Joi.string()
             .pattern(/^\s*[A-Za-z]+\s*$/)

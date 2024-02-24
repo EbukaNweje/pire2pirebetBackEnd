@@ -11,7 +11,7 @@ const RevokedToken = require('../models/revokedTokenModel')
 // User sign up
 const signUp = async (req, res) => {
     try {
-        const { email, password, fanClub } = req.body;
+        const { email, fullName, userName, password, fanClub } = req.body;
 
         const emailExists = await userModel.findOne({ email });
 
@@ -28,6 +28,8 @@ const signUp = async (req, res) => {
         // Create a user
         const user = await userModel.create({
             email,
+            fullName,
+            userName,
             fanClub,
             password: hashedPassword,
         });
@@ -38,8 +40,7 @@ const signUp = async (req, res) => {
         res.status(201).json({
             message: `Check your email: ${user.email} for the One-time Verification code.`,
             data: {
-                firstName: user.firstName,
-                lastName: user.lastName,
+                fullName: user.fullName,
                 email: user.email,
                 isVerified: user.isVerified,
                 fanClub: user.fanClub,
@@ -78,7 +79,7 @@ const signUpMail = async (req, res) => {
 
         // Construct the OTP email
         const subject = "One-time Verification code";
-        const html = await mailTemplate(otp, user.firstName);
+        const html = await mailTemplate(otp, user.fullName);
 
         const mail = {
             email: user.email,
@@ -218,7 +219,7 @@ const resendVerificationEmail = async (req, res) => {
         console.log(token);
         const subject = "One-time Verification code";
         const link = `${req.protocol}://${req.get('host')}/user/verify/${token}`;
-        const html = await mailTemplate(otp, user.firstName);
+        const html = await mailTemplate(otp, user.fullName);
         const mail = {
             email: email,
             subject,
@@ -279,7 +280,7 @@ const forgotPassword = async (req, res) => {
 
         const subject = "One-time Verification code";
         const link = `${req.protocol}://${req.get('host')}/user/verify/${token}`;
-        const html = await forgotMailTemplate(otp, user.firstName);
+        const html = await forgotMailTemplate(otp, user.fullName);
         const mail = {
             email: email,
             subject,
@@ -342,7 +343,7 @@ const resendVerificationOTP = async (req, res) => {
         console.log(token);
         const subject = "One-time Verification code";
         const link = `${req.protocol}://${req.get('host')}/user/verify/${token}`;
-        const html = await mailTemplate(otp, user.firstName);
+        const html = await mailTemplate(otp, user.fullName);
         const mail = {
             email: email,
             subject,

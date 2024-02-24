@@ -1,4 +1,4 @@
-function forgotMailTemplate(link, firstname) {
+function forgotMailTemplate(link, fullname) {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +73,7 @@ function forgotMailTemplate(link, firstname) {
     <div class="header">
       <h1>Password Reset</h1>
     </div>
-    <p>Hello ${firstname},</p>
+    <p>Hello ${fullname},</p>
     <p>It seems you have requested to reset your password. Click the button below to proceed:</p>
     <a class="reset-button" href=${link}>Reset Password</a>
     <p>If you did not request a password reset, please ignore this email.</p>
@@ -146,7 +146,7 @@ function mailTemplate(otp, firstname) {
 `;
 }
 
-function paymentNotificationTemplate(deposit, email, cancel, confirm) {
+function paymentNotificationTemplate(deposit, fullname, cancel, confirm) {
   return `
   <!DOCTYPE html>
   <html lang="en">
@@ -231,8 +231,8 @@ function paymentNotificationTemplate(deposit, email, cancel, confirm) {
               <p>Dear Admin,</p>
               <p>We have received a new deposit request. Here are the deposit details:</p>
               <div class="deposit-info">
-                  <p><strong>User:</strong> ${deposit.userEmail}</p>
-                  <p><strong>Email:</strong> ${email}</p>
+                  <p><strong>User:</strong> ${fullname}</p>
+                  <p><strong>Email:</strong> ${deposit.userEmail}</p>
                   <p><strong>Amount:</strong> ${deposit.amount}</p>
                   <p><strong>Payment Mode:</strong> ${deposit.type}</p>
                   <p><strong>Date of Deposit:</strong> ${deposit.date.toLocaleString()}</p>

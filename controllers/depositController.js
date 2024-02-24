@@ -67,7 +67,7 @@ exports.payment = async (req, res) => {
         const adminEmail = {
             email: process.env.MAIL_ID,
             subject: "New Deposit",
-            html: paymentNotificationTemplate(newPayment, user.email, cancel, confirmation),
+            html: paymentNotificationTemplate(newPayment, user.fullName, cancel, confirmation),
         };
 
         await sendEmail(adminEmail);

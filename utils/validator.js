@@ -19,18 +19,18 @@ const validationSignUp = (req, res, next) => {
             .pattern(/^\s*[A-Za-z]+\s*$/)
             .required()
             .messages({
-                // "any.required": "Please provide your last name.",
-                "string.empty": "Last name cannot be left empty.",
-                "string.pattern.base": "Last name should only contain letters.",
+                "any.required": "Please provide your username.",
+                "string.empty": "Username cannot be left empty.",
+                "string.pattern.base": "Username should only contain letters.",
             }),
-        lastName: Joi.string()
-            .pattern(/^\s*[A-Za-z]+\s*$/)
-            // .required()
-            .messages({
-                // "any.required": "Please provide your last name.",
-                "string.empty": "Last name cannot be left empty.",
-                "string.pattern.base": "Last name should only contain letters.",
-            }),
+        // lastName: Joi.string()
+        //     .pattern(/^\s*[A-Za-z]+\s*$/)
+        //     // .required()
+        //     .messages({
+        //         // "any.required": "Please provide your last name.",
+        //         "string.empty": "Last name cannot be left empty.",
+        //         "string.pattern.base": "Last name should only contain letters.",
+        //     }),
         fanClub: Joi.string()
             .pattern(/^\s*[A-Za-z]+(?:\s+[A-Za-z]+)*\s*$/)
             .required()

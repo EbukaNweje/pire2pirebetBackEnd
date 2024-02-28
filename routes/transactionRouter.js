@@ -2,7 +2,8 @@ const express = require('express');
 const { payment, allPayments, confirmPayment, declinePayment, allUserPayment } = require('../controllers/depositController');
 const { authenticate, isAdmin } = require('../utils/authentication');
 const { withdraw, confirmWithdraw, declineWithdraw, allUserWithdrawal } = require('../controllers/withdrawController');
-const upload = require('../utils/multer')
+const upload = require('../utils/multer');
+const { allUserTransaction } = require('../models/transaction');
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.post('/withdraw-confirm/:id', authenticate, isAdmin, confirmWithdraw);
 
 router.post('/withdraw-decline/:id', authenticate, isAdmin, declineWithdraw);
 
-// router.get('/transactions', authenticate, allUserTransaction);
+router.get('/transactions', authenticate, allUserTransaction);
 
 router.post('/withdraw', authenticate, withdraw);
 

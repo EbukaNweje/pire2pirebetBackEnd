@@ -3,7 +3,7 @@ const { payment, allPayments, confirmPayment, declinePayment, allUserPayment } =
 const { authenticate, isAdmin } = require('../utils/authentication');
 const { withdraw, confirmWithdraw, declineWithdraw, allUserWithdrawal } = require('../controllers/withdrawController');
 const upload = require('../utils/multer');
-const { allUserTransaction } = require('../models/transaction');
+const { allUserTransaction } = require('../controllers/transaction');
 
 const router = express.Router();
 

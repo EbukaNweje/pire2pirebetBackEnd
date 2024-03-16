@@ -52,8 +52,13 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Withdraw'
   }],
+  betslips: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Bet'
+  }],
   balance: {
     type: Number,
+    default: 0
   },
   bitcoinAddress: {
     type: String,

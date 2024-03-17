@@ -81,8 +81,10 @@ exports.makeOffer = async (req, res) => {
                 message: 'Cannot make an offer against yourself'
             });
         };
-        
+        // Multiply the initial stake with the current offer type to get the offer amount
         const amount = game.stake * offerType;
+        // Concactinate X to the offer before saving to the database
+        const offer = 'X'+offerType;
 
         // Check if the user's balance is enough for the stake
         if (user.balance < amount) {
@@ -93,7 +95,7 @@ exports.makeOffer = async (req, res) => {
 
         // Construct the offer object
         const data = {
-            offerType,
+            offerType: offer,
             offerAmount: amount,
             // offerStatus: 'Pending',
             offerBy: {

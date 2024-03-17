@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const userRouter = require('./routes/userRouter');
 const cors = require('cors');
 const transactionRouter = require('./routes/transactionRouter');
-
+const gameRouter = require('./routes/gameRouter');
 const fileupload = require("express-fileupload");
 
 
@@ -26,6 +26,7 @@ app.use(express.json());
 
 app.use("/api", userRouter);
 app.use("/api", transactionRouter);
+app.use("/api", gameRouter);
 
 app.use("/", (req, res) => {
   res.status(200).send("Welcome to the Home page!");

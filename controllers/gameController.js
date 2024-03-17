@@ -95,7 +95,7 @@ exports.makeOffer = async (req, res) => {
         const data = {
             offerType,
             offerAmount: amount,
-            offerStatus: 'Pending',
+            // offerStatus: 'Pending',
             offerBy: {
                 id: userId,
                 name: user.fullName

@@ -25,7 +25,7 @@ const gameSchema = new mongoose.Schema({
         }
     },
     offers: [{
-        offerStake: {
+        offerAmount: {
             type: Number
         },
         offerType: {

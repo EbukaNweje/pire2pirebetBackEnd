@@ -74,10 +74,10 @@ exports.makeOffer = async (req, res) => {
                 message: 'Game not found'
             });
         };
-
+        
         // Check if the user trying to make an offer is the original owner of the stake
-        if (game.user.id === userId) {
-            return res.status(404).json({
+        if (game.user.id.toString() === userId) {
+            return res.status(400).json({
                 message: 'Cannot make an offer against yourself'
             });
         };
@@ -86,7 +86,7 @@ exports.makeOffer = async (req, res) => {
 
         // Check if the user's balance is enough for the stake
         if (user.balance < amount) {
-            return res.status(404).json({
+            return res.status(400).json({
                 message: 'Insufficient balance'
             });
         };
@@ -101,10 +101,14 @@ exports.makeOffer = async (req, res) => {
                 name: user.fullName
             }
         }
-        console.log(data);
+        // Push the offer data into the game's offer array
         game.offers.push(data);
 
+        const balance = user.balance - amount;
+        user.balance = balance
+
         await game.save();
+        await user.save()
 
         res.status(200).json({
             message: 'Offer made successfully',
@@ -116,3 +120,5 @@ exports.makeOffer = async (req, res) => {
         })
     }
 }
+
+

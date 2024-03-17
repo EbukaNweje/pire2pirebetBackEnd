@@ -31,10 +31,10 @@ const gameSchema = new mongoose.Schema({
         offerType: {
             type: Number
         },
-        offerStatus: {
-            type: String,
-            enum: ['Pending', 'Confirmed']
-        },
+        // offerStatus: {
+        //     type: String,
+        //     enum: ['Pending', 'Confirmed']
+        // },
         offerBy: {
             id: {
                 type: mongoose.SchemaTypes.ObjectId,

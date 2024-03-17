@@ -121,4 +121,18 @@ exports.makeOffer = async (req, res) => {
     }
 }
 
+// Get all games
+exports.allGames = async (req, res) => {
+    try {
+        const games = await gameModel.find().sort({updatedAt: -1});
 
+        res.status(200).json({
+            message: 'All Games available',
+            data: games
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })  
+    }
+}

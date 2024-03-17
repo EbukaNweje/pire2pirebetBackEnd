@@ -25,16 +25,16 @@ const gameSchema = new mongoose.Schema({
         }
     },
     offers: [{
-        offerStake: {
+        offerAmount: {
             type: Number
         },
         offerType: {
-            type: Number
+            type: String
         },
-        offerStatus: {
-            type: String,
-            enum: ['Pending', 'Confirmed']
-        },
+        // offerStatus: {
+        //     type: String,
+        //     enum: ['Pending', 'Confirmed']
+        // },
         offerBy: {
             id: {
                 type: mongoose.SchemaTypes.ObjectId,

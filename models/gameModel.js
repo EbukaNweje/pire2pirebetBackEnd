@@ -29,7 +29,7 @@ const gameSchema = new mongoose.Schema({
             type: Number
         },
         offerType: {
-            type: Number
+            type: String
         },
         // offerStatus: {
         //     type: String,

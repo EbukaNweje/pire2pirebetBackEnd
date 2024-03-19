@@ -24,27 +24,6 @@ const gameSchema = new mongoose.Schema({
             require: true
         }
     },
-    offers: [{
-        offerAmount: {
-            type: Number
-        },
-        offerType: {
-            type: String
-        },
-        // offerStatus: {
-        //     type: String,
-        //     enum: ['Pending', 'Confirmed']
-        // },
-        offerBy: {
-            id: {
-                type: mongoose.SchemaTypes.ObjectId,
-                ref: 'User',
-            },
-            name: {
-                type: String,
-            }
-        },
-    }]
 }, { timestamps: true });
 
 const gameModel = mongoose.model('Game', gameSchema);

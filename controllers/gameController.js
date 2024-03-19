@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel');
 const gameModel = require('../models/gameModel');
+const offerModel = require('../models/offerModel');
 
 // To book a game
 exports.bookGame = async (req, res) => {
@@ -17,7 +18,7 @@ exports.bookGame = async (req, res) => {
         };
         // Check if the user's balance is enough for the stake
         if (user.balance < stake) {
-            return res.status(404).json({
+            return res.status(400).json({
                 message: 'Insufficient balance'
             });
         };
@@ -84,7 +85,7 @@ exports.makeOffer = async (req, res) => {
         // Multiply the initial stake with the current offer type to get the offer amount
         const amount = game.stake * offerType;
         // Concactinate X to the offer before saving to the database
-        const offer = 'X'+offerType;
+        const type = 'X'+offerType;
 
         // Check if the user's balance is enough for the stake
         if (user.balance < amount) {
@@ -94,27 +95,27 @@ exports.makeOffer = async (req, res) => {
         };
 
         // Construct the offer object
-        const data = {
-            offerType: offer,
+        const offer = await offerModel.create({
+            game: gameId,
+            offerType: type,
             offerAmount: amount,
-            // offerStatus: 'Pending',
             offerBy: {
                 id: userId,
                 name: user.fullName
             }
-        }
-        // Push the offer data into the game's offer array
-        game.offers.push(data);
+        })
+        // Push the offer into the user's betslip array
+        user.betslips.push(offer);
 
         const balance = user.balance - amount;
         user.balance = balance
 
-        await game.save();
+        // await game.save();
         await user.save()
 
         res.status(200).json({
             message: 'Offer made successfully',
-            data
+            offer
         })
     } catch (error) {
         res.status(500).json({
@@ -138,3 +139,29 @@ exports.allGames = async (req, res) => {
         })  
     }
 }
+
+// Get all Offers
+exports.allOffers = async (req, res) => {
+    try {
+        const { userId } = req.user;
+
+        // Get all games posted by user
+        const games = await gameModel.find({'user.id': userId});
+
+        // Extracting game IDs from games array
+        const gameIds = games.map(game => game._id);
+
+        // Get all offers in the database based on the user
+        const offers = await offerModel.find({ $or: [{'offerBy.id': userId}, {game: { $in: gameIds }}] });
+
+        res.status(200).json({
+            message: 'All Offer\'s available',
+            data: offers
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+

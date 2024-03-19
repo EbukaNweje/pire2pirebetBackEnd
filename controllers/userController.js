@@ -478,7 +478,7 @@ const userLogin = async (req, res) => {
         }
 
         // Find user based on email or Phone Number
-        const user = await userModel.findOne({email});
+        const user = await userModel.findOne({email}).populate('betslips');
 
         // Check if the user exists
         if (!user) {

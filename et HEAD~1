@@ -1,0 +1,149 @@
+[33mcommit e082642e70a923d152a9415c8f25b9ac68ffac88[m[33m ([m[1;36mHEAD -> [m[1;32mAhmed[m[33m)[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Tue Mar 19 11:10:37 2024 +0100
+
+    Created an offer model
+
+[33mcommit 42bc144c98e1f586760ee300fac65dd22000311f[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Tue Mar 19 11:10:11 2024 +0100
+
+    Removed the offers array field
+
+[33mcommit 66f5af80537f5aa52c3d36171cb64b12708f977b[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Tue Mar 19 11:07:25 2024 +0100
+
+    Populated the betslips array on login
+
+[33mcommit 2c4644379196947a43b8952c7f5c73c9a99019c8[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Tue Mar 19 11:06:29 2024 +0100
+
+    Updated the betslips array to have the correct model referenced
+
+[33mcommit 32d78ff165ff9c14dcc8eeb695dbb2ea125be424[m[33m ([m[1;31morigin/Ahmed[m[33m)[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 19:19:06 2024 +0100
+
+    Dynamically calculate the amount while receiving the offerType as a string
+
+[33mcommit 1391e4c8a30af444049c620d36c9c6cf59393362[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 19:18:11 2024 +0100
+
+    Change the data type for offer to String
+
+[33mcommit ad341b28dd7efec37471e76a2896683f948c7e91[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 19:00:05 2024 +0100
+
+    Offer status temporarily commented
+
+[33mcommit 939b44437120d7fdda97dd28b2ba46c13e331a3d[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 18:59:20 2024 +0100
+
+    Offer status commented
+
+[33mcommit bd449baef6795d4b28b244aea49d2f36bfce834d[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 18:47:53 2024 +0100
+
+    Added get all games route
+
+[33mcommit 13e173fbd9bab8b1df8c47ed8605a9f4b1be6a17[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 18:47:38 2024 +0100
+
+    Added get all games function
+
+[33mcommit 163cb7b6a53b328a1a5f5a3ca427a8176d638bda[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 18:47:13 2024 +0100
+
+    Updated
+
+[33mcommit 1e35e507bcf3f8354d737c4c94b9461628316946[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 18:46:55 2024 +0100
+
+    Updated
+
+[33mcommit 9693da1311961ed6325b0b39a702eba7820aaf59[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 17:42:52 2024 +0100
+
+    Added make offer route
+
+[33mcommit 53dab716e0f7c12cbf5283fff2c756f6539472ea[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 17:42:31 2024 +0100
+
+    Added make Offer function
+
+[33mcommit 9bfe6fe5ac5b32ef62ffdabd595cd7d578bb492c[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 16:46:47 2024 +0100
+
+    Added the game router to the server
+
+[33mcommit c6b04cb0db965c7ddb3cde9fd0eb37a7b8499f27[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 16:46:29 2024 +0100
+
+    Added the game router
+
+[33mcommit 7af4d8db3628a0c7f1042db4e9aefbec08f31df6[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sun Mar 17 16:46:04 2024 +0100
+
+    Added function to book game in the game controller
+
+[33mcommit 8a7a088166c43028aecf4cd964b15cb4381200dc[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sat Mar 16 15:29:41 2024 +0100
+
+    Games model set up
+
+[33mcommit 61c7d9bf9526407c7f2545f32b08569ff619368d[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sat Mar 16 15:28:56 2024 +0100
+
+    Updated the path for transactions
+
+[33mcommit 903301416570e8db6b876f550ddb88c8e024f1c7[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sat Mar 16 15:28:35 2024 +0100
+
+    Moved from models to controller
+
+[33mcommit a4191586c9b515a868a19c0d4df73b91231f7790[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sat Mar 16 15:28:11 2024 +0100
+
+    Moved
+
+[33mcommit 993eba8ae6efbcf881f62ac4734887772daeb215[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Sat Mar 16 15:27:59 2024 +0100
+
+    Deleted
+
+[33mcommit 99cea6f772fcaacbd30e48a58867fab6668378ae[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Thu Feb 29 16:45:45 2024 +0100
+
+    Added a country model
+
+[33mcommit bc06413e2b3443c4115550b9d185f2c4c603d8d7[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Wed Feb 28 12:15:06 2024 +0100
+
+    Added Get all transactions history by a user Routes
+
+[33mcommit ce38b972fe70e36ab591a8c3edc18439f7506078[m
+Author: Ahmeddavids <ahmeddavids6@gmail.com>
+Date:   Wed Feb 28 12:11:09 2024 +0100
+
+    Get all transactions history by a user function

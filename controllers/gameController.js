@@ -158,7 +158,7 @@ exports.allOffers = async (req, res) => {
         const gameIds = games.map(game => game._id);
 
         // Get all offers in the database based on the user
-        const offers = await offerModel.find({ $or: [{ 'offerBy.id': userId }, { game: { $in: gameIds } }] }).sort({createdAt: -1});
+        const offers = await offerModel.find({ $or: [{ 'offerBy.id': userId }, { gameId: { $in: gameIds } }] }).sort({createdAt: -1});
 
         res.status(200).json({
             message: 'All Offer\'s available',

@@ -37,6 +37,9 @@ exports.bookGame = async (req, res) => {
         // Deduct the stake amount from the user's balance
         const Balance = user.balance - stake;
         user.balance = Balance;
+
+        // Push the offer into the user's betslip array
+        user.betslips.push(bookedGame);
         // Save the user data to reflect the new balance
         await user.save()
 
@@ -75,7 +78,7 @@ exports.makeOffer = async (req, res) => {
                 message: 'Game not found'
             });
         };
-        
+
         // Check if the user trying to make an offer is the original owner of the stake
         if (game.user.id.toString() === userId) {
             return res.status(400).json({
@@ -85,7 +88,7 @@ exports.makeOffer = async (req, res) => {
         // Multiply the initial stake with the current offer type to get the offer amount
         const amount = game.stake * offerType;
         // Concactinate X to the offer before saving to the database
-        const type = 'X'+offerType;
+        const type = 'X' + offerType;
 
         // Check if the user's balance is enough for the stake
         if (user.balance < amount) {
@@ -104,8 +107,6 @@ exports.makeOffer = async (req, res) => {
                 name: user.fullName
             }
         })
-        // Push the offer into the user's betslip array
-        user.betslips.push(offer);
 
         const balance = user.balance - amount;
         user.balance = balance
@@ -127,7 +128,7 @@ exports.makeOffer = async (req, res) => {
 // Get all games
 exports.allGames = async (req, res) => {
     try {
-        const games = await gameModel.find().sort({updatedAt: -1});
+        const games = await gameModel.find().sort({ updatedAt: -1 });
 
         res.status(200).json({
             message: 'All Games available',
@@ -136,7 +137,7 @@ exports.allGames = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: error.message
-        })  
+        })
     }
 }
 
@@ -146,13 +147,13 @@ exports.allOffers = async (req, res) => {
         const { userId } = req.user;
 
         // Get all games posted by user
-        const games = await gameModel.find({'user.id': userId});
+        const games = await gameModel.find({ 'user.id': userId }).sort({createdAt: -1});
 
         // Extracting game IDs from games array
         const gameIds = games.map(game => game._id);
 
         // Get all offers in the database based on the user
-        const offers = await offerModel.find({ $or: [{'offerBy.id': userId}, {game: { $in: gameIds }}] });
+        const offers = await offerModel.find({ $or: [{ 'offerBy.id': userId }, { game: { $in: gameIds } }] }).sort({createdAt: -1});
 
         res.status(200).json({
             message: 'All Offer\'s available',
@@ -164,4 +165,5 @@ exports.allOffers = async (req, res) => {
         });
     }
 };
+
 

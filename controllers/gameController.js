@@ -89,6 +89,8 @@ exports.makeOffer = async (req, res) => {
         const amount = game.stake * offerType;
         // Concactinate X to the offer before saving to the database
         const type = 'X' + offerType;
+        // Calculate the offer return by adding the offer stake with the initial game stake
+        const returns = game.stake + amount;
 
         // Check if the user's balance is enough for the stake
         if (user.balance < amount) {
@@ -99,9 +101,12 @@ exports.makeOffer = async (req, res) => {
 
         // Construct the offer object
         const offer = await offerModel.create({
-            game: gameId,
+            gameId: gameId,
+            game: game.game,
+            pick: game.pick,
             offerType: type,
             offerAmount: amount,
+            offerReturn: returns,
             offerBy: {
                 id: userId,
                 name: user.fullName

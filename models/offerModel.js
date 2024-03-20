@@ -1,15 +1,24 @@
 const mongoose = require('mongoose');
 
 const offerSchema = new mongoose.Schema({
-    game: {
+    gameId: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Game',
+    },
+    game: {
+        type: String
+    },
+    pick: {
+        type: String
     },
     offerAmount: {
         type: Number
     },
     offerType: {
         type: String
+    },
+    offerReturn: {
+        type: Number
     },
     offerBy: {
         id: {

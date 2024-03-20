@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
   }],
   betslips: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Offer'
+    ref: 'Game'
   }],
   balance: {
     type: Number,

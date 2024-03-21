@@ -5,7 +5,7 @@ const offerModel = require('../models/offerModel');
 // To book a game
 exports.bookGame = async (req, res) => {
     try {
-        const { game, pick, stake } = req.body;
+        const { game, pick, stake, date, time } = req.body;
 
         const { userId } = req.user;
         // Get the user's data
@@ -27,6 +27,8 @@ exports.bookGame = async (req, res) => {
         const bookedGame = await gameModel.create({
             game,
             pick,
+            date,
+            time,
             stake,
             user: {
                 id: userId,

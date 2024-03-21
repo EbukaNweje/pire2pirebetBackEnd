@@ -9,6 +9,12 @@ const gameSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    date: {
+        type: String
+    },
+    time: {
+        type: String
+    },
     stake: {
         type: Number,
         require: true

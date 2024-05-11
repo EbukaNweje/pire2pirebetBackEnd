@@ -48,7 +48,7 @@ exports.getAllFootballLeagues  = async (req, res) => {
         const competitions = response.data.competitions;
 
         const leagueNames = competitions.map(competition => competition.name);
-
+        leagueNames.sort((a, b) => a.localeCompare(b));
 
         if(!leagueNames){
             return res.status(404).json({
